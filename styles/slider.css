@@ -32,11 +32,11 @@
     height: 100%;
     width: 20px;
     position: relative;
-    box-shadow: 1px 1px #aeaeae;
 }
 
 .el-button-slider:hover {
     background-color: #e2b81d;
+    box-shadow: 1px 1px #aeaeae;
 }
 .button-slider-text {
     position: absolute;
@@ -51,6 +51,7 @@
 
     width: 100px;
     height: 20px;
+    line-height: 20px;
     left: -200%;
     top: 40%;
     overflow: hidden;
@@ -61,6 +62,6 @@
 #btasks {
     position: relative;
     background-color: #F4EEE9;
-    overflow-y: scroll;
+    overflow: auto;
     height: 100%;
 }
