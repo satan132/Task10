@@ -1,12 +1,13 @@
 .content {
     width: 100%;
-    height: 100px;
+    min-height: 800px;
 }
 
 .bbutton-slider {
     height: 100%;
     width: 30px;
-    background-color: #553D39;
+    background-color: #C7C7C7;
+    border-right: 1px solid #9f9f9f;
 }
 
 .bbutton-slider, .task {
@@ -33,6 +34,9 @@
     position: relative;
 }
 
+.el-button-slider:hover {
+    background-color: #e2b81d;
+}
 .button-slider-text {
     position: absolute;
     -webkit-transform: rotate(-90deg);
@@ -51,4 +55,11 @@
     overflow: hidden;
     cursor: pointer;
     text-align: center;
+}
+
+#btasks {
+    position: relative;
+    background-color: #F4EEE9;
+    overflow-y: scroll;
+    height: 100%;
 }
