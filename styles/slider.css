@@ -1,0 +1,54 @@
+.content {
+    width: 100%;
+    height: 100px;
+}
+
+.bbutton-slider {
+    height: 100%;
+    width: 30px;
+    background-color: #553D39;
+}
+
+.bbutton-slider, .task {
+    float: left;
+}
+
+.button-slider > ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.button-slider > ul > li {
+    margin-top: 15px;
+    height: 100px;
+}
+
+.el-button-slider {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0 auto;
+    height: 100%;
+    width: 20px;
+    position: relative;
+}
+
+.button-slider-text {
+    position: absolute;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+    /* Should be unset in IE9+ I think. */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+    width: 100px;
+    height: 20px;
+    left: -200%;
+    top: 40%;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+}
