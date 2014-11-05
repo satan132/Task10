@@ -26,12 +26,13 @@
 }
 
 .el-button-slider {
-    border: 1px solid black;
+    border: 1px solid #616161;
     border-radius: 5px;
     margin: 0 auto;
     height: 100%;
     width: 20px;
     position: relative;
+    box-shadow: 1px 1px #aeaeae;
 }
 
 .el-button-slider:hover {
