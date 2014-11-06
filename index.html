@@ -54,18 +54,18 @@
                         <h2 data-bind="text: $data"></h2>
                     </div>
                     <div class="tasks">
-                        <ul data-bind="foreach: eval('$parent.' + $data)"> <!-- $parent.no-->
+                        <ul data-bind="foreach: eval('$parent.' + $data)">
                             <li>
                                 <div class="text-task" data-bind="text: Desc">
 
                                 </div>
-                                <div class="date">20/20/2014 20:20</div>
+                                <div class="date" data-bind="text: Date"></div>
                             </li>
                         </ul>
                     </div>
                     <div class="baddtast">
                         <textarea data-bind="value: $parent.Desc"></textarea>
-                        <button data-bind="click: function () { $parent.add($data + '') }">add</button>
+                        <button data-bind="click: function () { $parent.add($data) }">add</button>
                     </div>
                 </div>
             </div>
