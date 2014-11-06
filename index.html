@@ -48,27 +48,27 @@
             </div>
         </div>
         <div id="btasks">
-            <!-- ko foreach: status -->
-            <div class="btype-task">
-                <div class="type-name">
-                    <h2 data-bind="text: $data"></h2>
-                </div>
-                <div class="tasks">
-                    <ul data-bind="foreach: $data">
-                        <li>
-                            <div class="text-task" data-bind="text: Desc">
+            <div data-bind="foreach: status">
+                <div class="btype-task">
+                    <div class="type-name">
+                        <h2 data-bind="text: $data"></h2>
+                    </div>
+                    <div class="tasks">
+                        <ul data-bind="foreach: $parent.$data">
+                            <li>
+                                <div class="text-task" data-bind="text: $parent.$parent.Desc">
 
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="baddtast">
-                    <!--<textarea data-bind="value: Desc"></textarea>
-                    <button data-bind="click: function () { add('not_started') }">add</button>-->
+                                </div>
+                                <div class="date">20/20/2014 20:20</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="baddtast">
+                        <textarea data-bind="value: $parent.Desc"></textarea>
+                        <button data-bind="click: function () { $parent.add('not_started') }">add</button>
+                    </div>
                 </div>
             </div>
-            <!-- /ko -->
         </div>
     </div>
 </div>
