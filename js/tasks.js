@@ -1,6 +1,11 @@
-function TasksViewModel(desc) {
+function TasksViewModel() {
+    var appId = 'oiIsTuvUoFkxtWw9FwACl5HIWUcnJ7CquCcyYwEw';
+    var restApiKey = '8jzKG0OHXci1NDPv6yCvcsORcht9uasbusd0rxiL';
+    var pclass = 'tasks';
+
     var self = this;
 
+    self.objectId = '';
     self.Desc = '';
     self.Date = '123434343';
 
@@ -11,31 +16,99 @@ function TasksViewModel(desc) {
     self.ready_test = ko.observableArray([]);
     self.completed = ko.observableArray([]);
 
-    self.add = function(type) {
+    self.add = function(element, type) {
+        //$(this).val('');
         if (self.Desc.length > 0) {
-            if(type == 'not_started') {
-                self.not_started.push({
-                    Desc: ko.observable(self.Desc),
-                    Date: ko.observable(self.Date)
-                });
-            } else if(type == 'in_progress') {
-                self.in_progress.push({
-                    Desc: ko.observable(self.Desc),
-                    Date: ko.observable(self.Date)
-                });
-            } else if(type == 'ready_test') {
-                self.ready_test.push({
-                    Desc: ko.observable(self.Desc),
-                    Date: ko.observable(self.Date)
-                });
-            } else if(type == 'completed') {
-                self.completed.push( {
-                    Desc: ko.observable(self.Desc),
-                    Date: ko.observable(self.Date)
-                });
-            }
-            self.Desc = '';
+            save({
+                Desc: self.Desc,
+                Status: type
+            });
         }
+    };
+
+    var flagHoverTask = false;
+    this.toggleHoverTask = function(element) {
+        var $el = $(element).parent().find('.bbutton-edit');
+        if (flagHoverTask) { //mouseover
+            $el.css('display', 'block');
+        } else {
+            $el.css('display', 'none');
+        }
+    };
+
+    function save(task) {
+        var options = {
+            url: 'https://api.parse.com/1/classes/' + pclass,
+            type: 'POST',
+            data: JSON.stringify({
+                description: task.Desc,
+                status: task.Status
+            }),
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (request) {
+                request.setRequestHeader('X-Parse-Application-Id', appId);
+                request.setRequestHeader('X-Parse-REST-API-Key', restApiKey);
+            },
+            success: function (response) {
+                var obj = {
+                    objectId: ko.observable(response.objectId),
+                    Desc: ko.observable(task.Desc),
+                    Date: response.createdAt
+                };
+                if(task.Status == 'not_started') {
+                    self.not_started.push(obj);
+                } else if(task.Status == 'in_progress') {
+                    self.in_progress.push(obj);
+                } else if(task.Status == 'ready_test') {
+                    self.ready_test.push(obj);
+                } else if(task.Status == 'completed') {
+                    self.completed.push(obj);
+                }
+                self.Desc = '';
+            },
+            error: function () {
+                alert('can not be added');
+            }
+        };
+        $.ajax(options);
     }
+
+    (function load() {
+        var options = {
+            url: 'https://api.parse.com/1/classes/' + pclass,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (request) {
+                request.setRequestHeader('X-Parse-Application-Id', appId);
+                request.setRequestHeader('X-Parse-REST-API-Key', restApiKey);
+            },
+            success: function (response) {
+                if (response && response.results && response.results.length) {
+                    var l = response.results.length;
+                    for(var i = l - 1; i >= 0; --i) {
+                        var r = response.results[i];
+                        var obj = {
+                            objectId: ko.observable(r.objectId),
+                            Desc: ko.observable(r.description),
+                            Date: r.updatedAt
+                        };
+                        if(r.status == 'not_started') {
+                            self.not_started.push(obj);
+                        } else if(r.status == 'in_progress') {
+                            self.in_progress.push(obj);
+                        } else if(r.status == 'ready_test') {
+                            self.ready_test.push(obj);
+                        } else if(r.status == 'completed') {
+                            self.completed.push(obj);
+                        }
+                    }
+                }
+            },
+            error: function () {
+                alert('Can\'t retrieve data');
+            }
+        };
+        $.ajax(options);
+    })();
 }
 

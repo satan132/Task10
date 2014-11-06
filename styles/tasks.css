@@ -52,8 +52,13 @@
 
 .text-task {
     cursor: pointer;
+    word-wrap: break-word;
 }
 
 .text-task:hover {
     background-color: rgba(126, 244, 146, 0.51);
+}
+
+.objectId {
+    display: none;
 }

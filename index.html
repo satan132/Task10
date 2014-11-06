@@ -56,14 +56,18 @@
                     <div class="tasks">
                         <ul data-bind="foreach: eval('$parent.' + $data)">
                             <li>
-                                <div class="text-task" data-bind="text: Desc"></div>
-                                <div class="date" data-bind="text: Date"></div>
+                                <div data-bind="event: { mouseover: function() { parent.toggleHoverTask($element) }, mouseout: function() { $parent.toggleHoverTask($element) }">
+                                    <div class="objectId" data-bind="text: objectId"></div>
+                                    <div class="text-task" data-bind="text: Desc"></div>
+                                    <div class="date" data-bind="text: Date"></div>
+                                </div>
+                                <div class="bbutton-edit">edit</div>
                             </li>
                         </ul>
                     </div>
                     <div class="baddtast">
                         <textarea data-bind="value: $parent.Desc"></textarea>
-                        <button data-bind="click: function () { $parent.add($data) }">add</button>
+                        <button data-bind="click: function () { $parent.add($element, $data) }">add</button>
                     </div>
                 </div>
             </div>
