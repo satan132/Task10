@@ -54,9 +54,9 @@
                         <h2 data-bind="text: $data"></h2>
                     </div>
                     <div class="tasks">
-                        <ul data-bind="foreach: $parent.not_started">
+                        <ul data-bind="foreach: eval('$parent.' + $data)"> <!-- $parent.no-->
                             <li>
-                                <div class="text-task" data-bind="text: $parent.Desc">
+                                <div class="text-task" data-bind="text: Desc">
 
                                 </div>
                                 <div class="date">20/20/2014 20:20</div>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="baddtast">
                         <textarea data-bind="value: $parent.Desc"></textarea>
-                        <button data-bind="click: function () { $parent.add('not_started') }">add</button>
+                        <button data-bind="click: function () { $parent.add($data + '') }">add</button>
                     </div>
                 </div>
             </div>
