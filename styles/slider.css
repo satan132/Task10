@@ -1,7 +1,9 @@
 .content {
-    width: 100%;
+    /*width: 100%;*/
     min-height: 800px;
     background-color: #23719F;
+    overflow-y: scroll;
+    width: 200px;
 }
 
 .bbutton-slider {
