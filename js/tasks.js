@@ -11,6 +11,7 @@ function TasksViewModel(desc) {
     self.completed = ko.observableArray([]);
 
     self.add = function(type) {
+        alert(1);
         if (self.Desc.length > 0) {
             if(type == 'not_started') {
                 self.not_started.push({
