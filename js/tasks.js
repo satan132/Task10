@@ -26,14 +26,9 @@ function TasksViewModel() {
         }
     };
 
-    var flagHoverTask = false;
-    this.toggleHoverTask = function(element) {
+    self.clickTask = function(element) {
         var $el = $(element).parent().find('.bbutton-edit');
-        if (flagHoverTask) { //mouseover
-            $el.css('display', 'block');
-        } else {
-            $el.css('display', 'none');
-        }
+        $el.css('display', 'block');
     };
 
     function save(task) {

@@ -59,6 +59,6 @@
     background-color: rgba(126, 244, 146, 0.51);
 }
 
-.objectId {
+.objectId, .bbutton-edit {
     display: none;
 }

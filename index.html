@@ -56,7 +56,7 @@
                     <div class="tasks">
                         <ul data-bind="foreach: eval('$parent.' + $data)">
                             <li>
-                                <div data-bind="event: { mouseover: function() { parent.toggleHoverTask($element) }, mouseout: function() { $parent.toggleHoverTask($element) }">
+                                <div data-bind="click: function() { $parents[1].clickTask($element) }">
                                     <div class="objectId" data-bind="text: objectId"></div>
                                     <div class="text-task" data-bind="text: Desc"></div>
                                     <div class="date" data-bind="text: Date"></div>
