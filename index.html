@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="./styles/edit.css">
     <script type="text/javascript" src="./js/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="./js/knockout.js"></script>
+    <script type="text/javascript" src="./js/task.js"></script>
+    <script type="text/javascript" src="./js/tasks.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body>
@@ -46,86 +48,28 @@
             </div>
         </div>
         <div id="btasks">
+            <!-- ko foreach: status -->
             <div class="btype-task">
                 <div class="type-name">
-                    <h2>Not Started</h2>
+                    <h2 data-bind="text: $data"></h2>
                 </div>
                 <div class="tasks">
-                    <ul>
+                    <ul data-bind="foreach: $data">
                         <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="btype-task">
-                <div class="type-name">
-                    <h2>Not Started</h2>
-                </div>
-                <div class="tasks">
-                    <ul>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                        <li>
-                            <div class="text-task">
-                                dsdssdsdsd<br/>
-                                <br />
-                            </div>
-                            <div class="date">20/20/2014 20:20</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="edit" style="display: none">
-    <div class="bedit">
+                            <div class="text-task" data-bind="text: Desc">
 
+                            </div>
+                            <div class="date">20/20/2014 20:20</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="baddtast">
+                    <!--<textarea data-bind="value: Desc"></textarea>
+                    <button data-bind="click: function () { add('not_started') }">add</button>-->
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
     </div>
 </div>
 </body>

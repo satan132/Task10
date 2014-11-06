@@ -6,11 +6,12 @@ function pageSize() {
     }
 
     size();
-
     $(window).resize(size);
 }
 
 
 $(document).ready(function() {
     pageSize();
+
+    ko.applyBindings(new TasksViewModel());
 });
