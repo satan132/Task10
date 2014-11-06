@@ -54,9 +54,9 @@
                         <h2 data-bind="text: $data"></h2>
                     </div>
                     <div class="tasks">
-                        <ul data-bind="foreach: $parent.$data">
+                        <ul data-bind="foreach: $parent.not_started">
                             <li>
-                                <div class="text-task" data-bind="text: $parent.$parent.Desc">
+                                <div class="text-task" data-bind="text: $parent.Desc">
 
                                 </div>
                                 <div class="date">20/20/2014 20:20</div>
