@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="./styles/edit.css">
     <script type="text/javascript" src="./js/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="./js/knockout.js"></script>
-    <script type="text/javascript" src="./js/task.js"></script>
     <script type="text/javascript" src="./js/tasks.js"></script>
+    <script type="text/javascript" src="./js/general_model.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body>
@@ -21,27 +21,12 @@
     </div>
     <div id="content">
         <div class="bbutton-slider">
-            <div class="button-slider">
-                <ul>
+            <div id="button-slider">
+                <ul data-bind="foreach: types">
                     <li>
                         <div class="el-button-slider">
-                            <div class="button-slider-text">
-                                tasks
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="el-button-slider">
-                            <div class="button-slider-text">
-                                bug
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="el-button-slider">
-                            <div class="button-slider-text">
-                                Enhancement
-                            </div>
+                            <div class="button-slider-text"
+                                 data-bind="text: $data.name, css: { selected: $data == $root.chosenFolderId() }, click: function() { $parent.select($data.name); }"></div>
                         </div>
                     </li>
                 </ul>
@@ -54,9 +39,9 @@
                         <h2 data-bind="text: $data"></h2>
                     </div>
                     <div class="tasks">
-                        <ul data-bind="foreach: eval('$parent.' + $data)">
+                        <ul data-bind="foreach: $parent.colstatus[$data];">
                             <li>
-                                <div class="objectId" data-bind="text: objectId"></div>
+                                <div class="objectId" data-bind="text: $parent.objectId"></div>
                                 <div data-bind="ifnot: isEditing">
                                     <div data-bind="click: function() { $parents[1].toggleHoverTask($element); }">
                                         <div class="text-task" data-bind="text: desc"></div>
@@ -64,12 +49,12 @@
                                     </div>
                                     <div class="bbutton-edit">
                                         <a href="#" data-bind="click: edit">edit</a>
-                                        <a href="#">del</a>
+                                        <a href="#" data-bind="click: remove">del</a>
                                         <a href="#">change status</a>
                                     </div>
                                 </div>
                                 <div data-bind="if: isEditing">
-                                    <input type="text" data-bind="value: desc" />
+                                    <textarea data-bind="value: desc"></textarea>
                                     <button data-bind="click: save">add</button>
                                 </div>
                             </li>

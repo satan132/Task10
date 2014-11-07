@@ -17,13 +17,13 @@
     float: left;
 }
 
-.button-slider > ul {
+#button-slider > ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-.button-slider > ul > li {
+#button-slider > ul > li {
     margin-top: 15px;
     height: 100px;
 }

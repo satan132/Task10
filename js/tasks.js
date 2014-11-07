@@ -1,23 +1,20 @@
-function TasksViewModel() {
+function TasksViewModel(pclass, status) {
     var appId = 'NDwyPEkcpGLJHLUZo5TTZWmhvdFj9ZyMWJVe5TTS';
     var restApiKey = 'eyv8T2GKSx9t0iBpxHTl3WOo7CyoxSq2XGBKbrZh';
-    var pclass = 'tasks';
 
     var self = this;
 
-    self.objectId = '';
     self.desc = '';
     self.date = '123434343';
 
-    self.status = ['not_started', 'in_progress', 'ready_test', 'completed'];
+    self.status = status;
 
-    self.not_started = ko.observableArray([]);
-    self.in_progress = ko.observableArray([]);
-    self.ready_test = ko.observableArray([]);
-    self.completed = ko.observableArray([]);
+    self.colstatus = [];
+    for(var i = 0; i < status.length; ++i) {
+        self.colstatus[status[i]] = ko.observableArray([]);
+    }
 
     self.add = function(element, type) {
-        alert(1);
         if (self.desc.length > 0) {
             save({
                 desc: self.desc,
@@ -37,10 +34,9 @@ function TasksViewModel() {
         toggleHoverTaskFlag = !toggleHoverTaskFlag;
     };
 
-    function update(data) {
-        /*blockLi(id, 'wait');
+    function update(data, funcend) {
         var options = {
-            url: 'https://api.parse.com/1/classes/' + pclass + '/' + id,
+            url: 'https://api.parse.com/1/classes/' + pclass + '/' + data.objectId,
             type: 'PUT',
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
@@ -49,24 +45,37 @@ function TasksViewModel() {
                 request.setRequestHeader('X-Parse-REST-API-Key', restApiKey);
             },
             success: function (response) {
-                var t = $('#task' + id);
-                t.find('.btitle').html(data.title);
-                t.find('.bdesc').html(data.desc);
-                t.find('.bext').html(data.ext);
-                $('#m' + id).text(response.updatedAt);
-                b.text('Edit');
-                unblockLi(id);
+                funcend(response);
             },
             error: function () {
-                showError('Failed to update status');
-                unblockLi(id);
+                alert('Failed to update status');
             }
         };
-        $.ajax(options);*/
+        $.ajax(options);
     }
 
-    function del(id) {
-
+    function remove(obj) {
+        var options = {
+            url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
+            type: 'DELETE',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (request) {
+                request.setRequestHeader('X-Parse-Application-Id', appId);
+                request.setRequestHeader('X-Parse-REST-API-Key', restApiKey);
+            },
+            success: function (response) {
+                for(var i = 0; i < self.status.length; ++i) {
+                    if(obj.status == self.status[i]) {
+                        self.colstatus[status[i]].remove(obj);
+                        break;
+                    }
+                }
+            },
+            error: function () {
+                alert('can not be removed');
+            }
+        };
+        $.ajax(options);
     }
 
     function save(task) {
@@ -84,30 +93,33 @@ function TasksViewModel() {
             },
             success: function (response) {
                 var obj = {
-                    objectId: ko.observable(response.objectId),
+                    objectId: response.objectId,
                     desc: ko.observable(task.desc),
-                    date: response.createdAt,
+                    date: ko.observable(response.createdAt),
                     isEditing: ko.observable(false),
                     edit: function () {
                         obj.isEditing(true);
                     },
                     save: function () {
+                        var self = this;
                         obj.isEditing(false);
                         update({
-                            desc: self.desc,
+                            desc: self.desc(),
                             objectId: self.objectId
+                        }, function(r) {
+                            self.isEditing(false);
+                            self.date(r.updatedAt);
                         });
+                    },
+                    remove: function() {
+                        remove(this);
                     }
                 };
-
-                if(task.status == 'not_started') {
-                    self.not_started.push(obj);
-                } else if(task.status == 'in_progress') {
-                    self.in_progress.push(obj);
-                } else if(task.status == 'ready_test') {
-                    self.ready_test.push(obj);
-                } else if(task.status == 'completed') {
-                    self.completed.push(obj);
+                for(var i = 0; i < self.status.length; ++i) {
+                    if(task.status == self.status[i]) {
+                        self.colstatus[self.status[i]].push(obj);
+                        break;
+                    }
                 }
                 self.desc = '';
             },
@@ -133,9 +145,10 @@ function TasksViewModel() {
                     for(var i = l - 1; i >= 0; --i) {
                         var r = response.results[i];
                         var obj = {
-                            objectId: ko.observable(r.objectId),
+                            objectId: r.objectId,
+                            status: r.status,
                             desc: ko.observable(r.desc),
-                            date: r.updatedAt,
+                            date: ko.observable(r.updatedAt),
                             isEditing: ko.observable(false),
                             edit: function () {
                                 this.isEditing(true);
@@ -143,24 +156,22 @@ function TasksViewModel() {
                             save: function () {
                                 var self = this;
                                 update({
-                                    desc: self.desc,
+                                    desc: self.desc(),
                                     objectId: self.objectId
+                                }, function(r) {
+                                    self.isEditing(false);
+                                    self.date(r.updatedAt);
                                 });
-                                this.isEditing(false);
                             },
                             remove: function() {
-                                remove(this.objectId);
+                                remove(this);
                             }
                         };
-
-                        if(r.status == 'not_started') {
-                            self.not_started.push(obj);
-                        } else if(r.status == 'in_progress') {
-                            self.in_progress.push(obj);
-                        } else if(r.status == 'ready_test') {
-                            self.ready_test.push(obj);
-                        } else if(r.status == 'completed') {
-                            self.completed.push(obj);
+                        for(var j = 0; j < self.status.length; ++j) {
+                            if(r.status == self.status[j]) {
+                                self.colstatus[self.status[j]].push(obj);
+                                break;
+                            }
                         }
                     }
                 }
