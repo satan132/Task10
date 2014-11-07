@@ -17,7 +17,6 @@ function TasksViewModel() {
     self.completed = ko.observableArray([]);
 
     self.add = function(element, type) {
-        //$(this).val('');
         if (self.Desc.length > 0) {
             save({
                 Desc: self.Desc,
@@ -30,6 +29,10 @@ function TasksViewModel() {
         var $el = $(element).parent().find('.bbutton-edit');
         $el.css('display', 'block');
     };
+
+    function update(obj) {
+
+    }
 
     function save(task) {
         var options = {
@@ -48,8 +51,17 @@ function TasksViewModel() {
                 var obj = {
                     objectId: ko.observable(response.objectId),
                     Desc: ko.observable(task.Desc),
-                    Date: response.createdAt
+                    Date: response.createdAt,
+                    isEditing: ko.observable(false),
+                    edit: function () {
+                        obj.isEditing(true);
+                    },
+                    save: function () {
+                        obj.isEditing(false);
+                        update(this);
+                    }
                 };
+
                 if(task.Status == 'not_started') {
                     self.not_started.push(obj);
                 } else if(task.Status == 'in_progress') {
@@ -85,8 +97,17 @@ function TasksViewModel() {
                         var obj = {
                             objectId: ko.observable(r.objectId),
                             Desc: ko.observable(r.description),
-                            Date: r.updatedAt
+                            Date: r.updatedAt,
+                            isEditing: ko.observable(false),
+                            edit: function () {
+                                this.isEditing(true);
+                            },
+                            save: function () {
+                                update(this);
+                                this.isEditing(false);
+                            }
                         };
+
                         if(r.status == 'not_started') {
                             self.not_started.push(obj);
                         } else if(r.status == 'in_progress') {
