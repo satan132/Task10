@@ -26,15 +26,15 @@ function TasksViewModel() {
         }
     };
 
-    var hoverTaskFlag = true;
-    self.hoverTask = function(element) {
+    var toggleHoverTaskFlag = true;
+    self.toggleHoverTask = function(element) {
         var $el = $(element).parent().find('.bbutton-edit');
-        if (hoverTaskFlag) {
+        if (toggleHoverTaskFlag) {
             $el.css('display', 'block');
         } else {
             $el.css('display', 'none');
         }
-        hoverTaskFlag = !hoverTaskFlag;
+        toggleHoverTaskFlag = !toggleHoverTaskFlag;
     };
 
     function update(data) {
@@ -63,6 +63,10 @@ function TasksViewModel() {
             }
         };
         $.ajax(options);*/
+    }
+
+    function del(id) {
+
     }
 
     function save(task) {
@@ -143,6 +147,9 @@ function TasksViewModel() {
                                     objectId: self.objectId
                                 });
                                 this.isEditing(false);
+                            },
+                            remove: function() {
+                                remove(this.objectId);
                             }
                         };
 

@@ -58,7 +58,7 @@
                             <li>
                                 <div class="objectId" data-bind="text: objectId"></div>
                                 <div data-bind="ifnot: isEditing">
-                                    <div data-bind="event: {mouseover: function() { $parents[1].hoverTask($element); }, mouseout: function() { $parents[1].hoverTask($element) }}">
+                                    <div data-bind="click: function() { $parents[1].toggleHoverTask($element); }">
                                         <div class="text-task" data-bind="text: desc"></div>
                                         <div class="date" data-bind="text: date"></div>
                                     </div>
