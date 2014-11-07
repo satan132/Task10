@@ -5,15 +5,10 @@ function GeneralModel(types, func) {
 
     this.types = types;
 
-    self.chosenFolderId = ko.observable();
-
-    self.goToMail = function(mail) {
-        self.chosenFolderId(mail.folder);
-        self.chosenFolderData(null); // Stop showing a folder
-        $.get("/mail", { mailId: mail.id }, self.chosenMailData);
-    };
+    self.chosenTypeId = ko.observable();
 
     this.select = function(i) {
+        self.chosenTypeId(i);
         func(i);
     };
 

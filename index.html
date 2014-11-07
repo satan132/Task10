@@ -25,8 +25,7 @@
                 <ul data-bind="foreach: types">
                     <li>
                         <div class="el-button-slider">
-                            <div class="button-slider-text"
-                                 data-bind="text: $data.name, css: { selected: $data == $root.chosenFolderId() }, click: function() { $parent.select($data.name); }"></div>
+                            <div class="button-slider-text" data-bind="text: $data.name, attr: { selected: $data.name == $parent.chosenTypeId() }, click: function() { $parent.select($data.name); }"></div>
                         </div>
                     </li>
                 </ul>

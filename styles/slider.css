@@ -35,12 +35,14 @@
     height: 100%;
     width: 20px;
     position: relative;
+    overflow: hidden;
 }
 
-.el-button-slider:hover {
+.el-button-slider:hover, .button-slider-text[selected="true"]  {
     background-color: #e2b81d;
     box-shadow: 1px 1px #aeaeae;
 }
+
 .button-slider-text {
     position: absolute;
     -webkit-transform: rotate(-90deg);

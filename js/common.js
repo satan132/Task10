@@ -1,7 +1,7 @@
 function Apps() {
     var types = [
         {
-            name: 'btasks',
+            name: 'tasks',
             status: ['Not Started', 'In Progress', 'Ready Test', 'Completed']
         },
         {
@@ -17,12 +17,17 @@ function Apps() {
     ko.applyBindings(new GeneralModel(
         types,
         function(i) {
-            alert(i);
+            var el = document.getElementById('btasks');
+            ko.cleanNode(el);
+            ko.applyBindings(
+                new TasksViewModel(i, (function(name) {
+                    for(var j in types) {
+                        if (types[j].name == name) return types[j].status;
+                    }
+                })(i)),
+                document.getElementById('btasks')
+            );
         }), document.getElementById('button-slider')
-    );
-    ko.applyBindings(
-        new TasksViewModel('tasks', ['not_started', 'in_progress', 'ready_test', 'completed']),
-        document.getElementById('btasks')
     );
 
     (function() {
