@@ -58,9 +58,9 @@
                             <li>
                                 <div class="objectId" data-bind="text: objectId"></div>
                                 <div data-bind="ifnot: isEditing">
-                                    <div data-bind="click: function() { $parents[1].clickTask($element) }">
-                                        <div class="text-task" data-bind="text: Desc"></div>
-                                        <div class="date" data-bind="text: Date"></div>
+                                    <div data-bind="event: {mouseover: function() { $parents[1].hoverTask($element); }, mouseout: function() { $parents[1].hoverTask($element) }}">
+                                        <div class="text-task" data-bind="text: desc"></div>
+                                        <div class="date" data-bind="text: date"></div>
                                     </div>
                                     <div class="bbutton-edit">
                                         <a href="#" data-bind="click: edit">edit</a>
@@ -69,14 +69,14 @@
                                     </div>
                                 </div>
                                 <div data-bind="if: isEditing">
-                                    <input type="text" data-bind="value: Desc" />
+                                    <input type="text" data-bind="value: desc" />
                                     <button data-bind="click: save">add</button>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="baddtast">
-                        <textarea data-bind="value: $parent.Desc"></textarea>
+                        <textarea data-bind="value: $parent.desc"></textarea>
                         <button data-bind="click: function () { $parent.add($element, $data) }">add</button>
                     </div>
                 </div>

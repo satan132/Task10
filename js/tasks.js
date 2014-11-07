@@ -1,13 +1,13 @@
 function TasksViewModel() {
-    var appId = 'oiIsTuvUoFkxtWw9FwACl5HIWUcnJ7CquCcyYwEw';
-    var restApiKey = '8jzKG0OHXci1NDPv6yCvcsORcht9uasbusd0rxiL';
+    var appId = 'NDwyPEkcpGLJHLUZo5TTZWmhvdFj9ZyMWJVe5TTS';
+    var restApiKey = 'eyv8T2GKSx9t0iBpxHTl3WOo7CyoxSq2XGBKbrZh';
     var pclass = 'tasks';
 
     var self = this;
 
     self.objectId = '';
-    self.Desc = '';
-    self.Date = '123434343';
+    self.desc = '';
+    self.date = '123434343';
 
     self.status = ['not_started', 'in_progress', 'ready_test', 'completed'];
 
@@ -17,21 +17,52 @@ function TasksViewModel() {
     self.completed = ko.observableArray([]);
 
     self.add = function(element, type) {
-        if (self.Desc.length > 0) {
+        alert(1);
+        if (self.desc.length > 0) {
             save({
-                Desc: self.Desc,
-                Status: type
+                desc: self.desc,
+                status: type
             });
         }
     };
 
-    self.clickTask = function(element) {
+    var hoverTaskFlag = true;
+    self.hoverTask = function(element) {
         var $el = $(element).parent().find('.bbutton-edit');
-        $el.css('display', 'block');
+        if (hoverTaskFlag) {
+            $el.css('display', 'block');
+        } else {
+            $el.css('display', 'none');
+        }
+        hoverTaskFlag = !hoverTaskFlag;
     };
 
-    function update(obj) {
-
+    function update(data) {
+        /*blockLi(id, 'wait');
+        var options = {
+            url: 'https://api.parse.com/1/classes/' + pclass + '/' + id,
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (request) {
+                request.setRequestHeader('X-Parse-Application-Id', appId);
+                request.setRequestHeader('X-Parse-REST-API-Key', restApiKey);
+            },
+            success: function (response) {
+                var t = $('#task' + id);
+                t.find('.btitle').html(data.title);
+                t.find('.bdesc').html(data.desc);
+                t.find('.bext').html(data.ext);
+                $('#m' + id).text(response.updatedAt);
+                b.text('Edit');
+                unblockLi(id);
+            },
+            error: function () {
+                showError('Failed to update status');
+                unblockLi(id);
+            }
+        };
+        $.ajax(options);*/
     }
 
     function save(task) {
@@ -39,8 +70,8 @@ function TasksViewModel() {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'POST',
             data: JSON.stringify({
-                description: task.Desc,
-                status: task.Status
+                desc: task.desc,
+                status: task.status
             }),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (request) {
@@ -50,28 +81,31 @@ function TasksViewModel() {
             success: function (response) {
                 var obj = {
                     objectId: ko.observable(response.objectId),
-                    Desc: ko.observable(task.Desc),
-                    Date: response.createdAt,
+                    desc: ko.observable(task.desc),
+                    date: response.createdAt,
                     isEditing: ko.observable(false),
                     edit: function () {
                         obj.isEditing(true);
                     },
                     save: function () {
                         obj.isEditing(false);
-                        update(this);
+                        update({
+                            desc: self.desc,
+                            objectId: self.objectId
+                        });
                     }
                 };
 
-                if(task.Status == 'not_started') {
+                if(task.status == 'not_started') {
                     self.not_started.push(obj);
-                } else if(task.Status == 'in_progress') {
+                } else if(task.status == 'in_progress') {
                     self.in_progress.push(obj);
-                } else if(task.Status == 'ready_test') {
+                } else if(task.status == 'ready_test') {
                     self.ready_test.push(obj);
-                } else if(task.Status == 'completed') {
+                } else if(task.status == 'completed') {
                     self.completed.push(obj);
                 }
-                self.Desc = '';
+                self.desc = '';
             },
             error: function () {
                 alert('can not be added');
@@ -96,14 +130,18 @@ function TasksViewModel() {
                         var r = response.results[i];
                         var obj = {
                             objectId: ko.observable(r.objectId),
-                            Desc: ko.observable(r.description),
-                            Date: r.updatedAt,
+                            desc: ko.observable(r.desc),
+                            date: r.updatedAt,
                             isEditing: ko.observable(false),
                             edit: function () {
                                 this.isEditing(true);
                             },
                             save: function () {
-                                update(this);
+                                var self = this;
+                                update({
+                                    desc: self.desc,
+                                    objectId: self.objectId
+                                });
                                 this.isEditing(false);
                             }
                         };
