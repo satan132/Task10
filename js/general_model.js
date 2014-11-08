@@ -1,16 +1,11 @@
-function GeneralModel(types, func) {
+function GeneralModel(types, pos) {
     if (types.length == 0) return;
-
-    var self = this;
 
     this.types = types;
 
-    self.chosenTypeId = ko.observable();
+    this.chosenTypeId = pos;
 
     this.select = function(i) {
-        self.chosenTypeId(i);
-        func(i);
+        window.location.hash = i;
     };
-
-    this.select(types[0].name);
 }

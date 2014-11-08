@@ -183,4 +183,3 @@ function TasksViewModel(pclass, status) {
         $.ajax(options);
     })();
 }
-

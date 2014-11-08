@@ -14,21 +14,29 @@ function Apps() {
         }
     ];
 
+    var name = window.location.hash ? window.location.hash.substring(1) : types[0].name;
+    var status = (function(name) {
+        for(var i in types) {
+            if (types[i].name == name) return types[i].status;
+        }
+        return undefined;
+    })(name);
+
+    if (status == undefined) {
+        name = types[0].name;
+        status = types[0].status;
+    }
+
     ko.applyBindings(new GeneralModel(
         types,
-        function(i) {
-            var el = document.getElementById('btasks');
-            ko.cleanNode(el);
-            ko.applyBindings(
-                new TasksViewModel(i, (function(name) {
-                    for(var j in types) {
-                        if (types[j].name == name) return types[j].status;
-                    }
-                })(i)),
-                document.getElementById('btasks')
-            );
-        }), document.getElementById('button-slider')
+        window.location.hash ? window.location.hash : types[0].name
+    ), document.getElementById('button-slider'));
+
+    ko.applyBindings(
+        new TasksViewModel(name, status),
+        document.getElementById('btasks')
     );
+
 
     (function() {
         function size() {
