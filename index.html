@@ -18,9 +18,10 @@
 <div class="wrap">
     <div class="header">
         <img src="logo.png">
-        <span>Issue tracker</span>
+        <h1>Issue tracker</h1>
     </div>
     <div id="content">
+
         <div class="bbutton-slider">
             <div id="button-slider">
                 <ul data-bind="foreach: types">
@@ -33,10 +34,11 @@
             </div>
         </div>
         <div id="btasks">
+            <h2 data-bind="text: head"></h2>
             <div data-bind="foreach: status">
                 <div class="btype-task">
                     <div class="type-name">
-                        <h2 data-bind="text: $data"></h2>
+                        <h3 data-bind="text: $data"></h3>
                     </div>
                     <div class="tasks">
                         <div class='ul'data-bind="foreach: $parent.colstatus[$data];">
@@ -53,7 +55,7 @@
                                         <a href="#">change status</a>
                                     </div>
                                 </div>
-                                <div data-bind="if: isEditing">
+                                <<div data-bind="if: isEditing">
                                     <textarea data-bind="value: desc"></textarea>
                                     <button data-bind="click: save">add</button>
                                 </div>

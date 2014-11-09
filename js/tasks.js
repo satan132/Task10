@@ -6,7 +6,15 @@ function TasksViewModel(pclass, status) {
 
     self.desc = '';
     self.date = '123434343';
-
+    self.head=ko.computed(function(){
+        var first=pclass.charAt(0);
+        first=first.toUpperCase();
+        for(var i=1; i<pclass.length; i++)
+        {
+            first+=pclass.charAt(i);
+        }
+        return first;
+    });
     self.status = status;
 
     self.colstatus = [];
@@ -20,6 +28,7 @@ function TasksViewModel(pclass, status) {
                 desc: self.desc,
                 status: type
             });
+
         }
     };
 
@@ -35,6 +44,7 @@ function TasksViewModel(pclass, status) {
     };
 
     function update(data, funcend) {
+        loadScreen();
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + data.objectId,
             type: 'PUT',
@@ -46,8 +56,10 @@ function TasksViewModel(pclass, status) {
             },
             success: function (response) {
                 funcend(response);
+                removeLoadScreen();
             },
             error: function () {
+                removeLoadScreen();
                 alert('Failed to update status');
             }
         };
@@ -56,6 +68,7 @@ function TasksViewModel(pclass, status) {
 
     function remove(obj) {
         toggleHoverTaskFlag = !toggleHoverTaskFlag;
+        loadScreen();
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
             type: 'DELETE',
@@ -71,15 +84,18 @@ function TasksViewModel(pclass, status) {
                         break;
                     }
                 }
+                removeLoadScreen();
             },
             error: function () {
                 alert('can not be removed');
+                removeLoadScreen();
             }
         };
         $.ajax(options);
     }
 
     function save(task) {
+        loadScreen();
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'POST',
@@ -123,15 +139,20 @@ function TasksViewModel(pclass, status) {
                     }
                 }
                 self.desc = '';
+                removeLoadScreen();
             },
             error: function () {
                 alert('can not be added');
+                removeLoadScreen();
             }
         };
         $.ajax(options);
     }
 
     (function load() {
+
+        loadScreen();
+
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'GET',
@@ -176,11 +197,23 @@ function TasksViewModel(pclass, status) {
                         }
                     }
                 }
+                removeLoadScreen();
             },
             error: function () {
                 alert('Can\'t retrieve data');
+                removeLoadScreen();
             }
         };
         $.ajax(options);
     })();
+}
+function loadScreen(){
+    debugger
+    var ls =$('<div>')
+        .attr('id', 'loadScreen')
+        .appendTo('body')
+        .html('<img src="Slowpoke_3.gif">');
+}
+function removeLoadScreen(){
+    $('#loadScreen').remove();
 }

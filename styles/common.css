@@ -10,15 +10,41 @@ body {
 
 
 }
+@font-face{
+    font-family: "Buxton_Sketch";
+    src: url('BuxtonSketch.ttf');
+}
+#loadScreen{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    background: #ffffff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 31%, #6e7774 59%, #0a0e0a 85%, #0a0809 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(31%,#ffffff), color-stop(59%,#6e7774), color-stop(85%,#0a0e0a), color-stop(100%,#0a0809)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#0a0809',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+#loadScreen img{
+    position: fixed;
+    top: 50%;
+    margin-top: -140px;
+    right: 50%;
+    margin-right: -92px;
+}
 html{
     height: 100%;
     width: 100%;
 
 }
-h2 {
+h3 {
     font-size: 10.5pt;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 .wrap {
