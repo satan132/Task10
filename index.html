@@ -45,7 +45,7 @@
                             <div class="li"data-bind="event: { mouseover:function() { $parents[1].toggleHoverTask($element)}, mouseout:function() { $parents[1].toggleHoverTask($element)}  }">
                                 <div class="objectId" data-bind="text: $parent.objectId"></div>
                                 <div data-bind="ifnot: isEditing">
-                                    <div >
+                                    <div>
                                         <div class="text-task" data-bind="text: desc"></div>
                                         <div class="date" data-bind="text: date"></div>
                                     </div>
@@ -55,7 +55,7 @@
                                         <a href="#">change status</a>
                                     </div>
                                 </div>
-                                <<div data-bind="if: isEditing">
+                                <div data-bind="if: isEditing">
                                     <textarea data-bind="value: desc"></textarea>
                                     <button data-bind="click: save">add</button>
                                 </div>
