@@ -33,8 +33,26 @@
                 </ul>
             </div>
         </div>
+        <!---------------------------------------------------------------------------------------------------------------------->
         <div id="btasks">
+            <button data-bind="click: function(){if($root.isAdded)$root.isAdded=false;else $root.isAdded=true;alert($root.isAdded)}">+</button>
             <h2 data-bind="text: head"></h2>
+            <div data-bind="if:$root.isAdded">
+                <div class="addWindow">
+                    <div class="addForm">
+                        <form>
+                            <h2>Adding a new task.</h2>
+                            <span>Description</span><br/>
+                        <textarea cols='50' rows='10'data-bind="value: desc" placeholder="Write your description..."></textarea><br/>
+                            <span>Select status</span><br/>
+                            <select data-bind="options: $root.status, value:$root.selectedStatus"></select><br/>
+                            <button data-bind="click: $root.add(selectedStatus)">Add</button>
+                            <button data-bind="click: function(){$root.isAdded=false}">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!---------------------------------------------------------------------------------------------------------------------->
             <div data-bind="foreach: status">
                 <div class="btype-task">
                     <div class="type-name">
@@ -64,7 +82,7 @@
                     </div>
                     <div class="baddtast">
                         <textarea data-bind="value: $parent.desc"></textarea>
-                        <button data-bind="click: function () { $parent.add($element, $data) }">add</button>
+                        <button data-bind="click: function () { $parent.add( $data) }">add</button>
                     </div>
                 </div>
             </div>

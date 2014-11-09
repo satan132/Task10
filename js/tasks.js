@@ -3,9 +3,11 @@ function TasksViewModel(pclass, status) {
     var restApiKey = 'eyv8T2GKSx9t0iBpxHTl3WOo7CyoxSq2XGBKbrZh';
 
     var self = this;
-
+    self.isAdded=ko.observable(false);
+    //self.addChange=;alert(self.isAdded)});
     self.desc = '';
     self.date = '123434343';
+    self.selectedStatus=status[0];
     self.head=ko.computed(function(){
         var first=pclass.charAt(0);
         first=first.toUpperCase();
@@ -22,7 +24,7 @@ function TasksViewModel(pclass, status) {
         self.colstatus[status[i]] = ko.observableArray([]);
     }
 
-    self.add = function(element, type) {
+    self.add = function( type) {
         if (self.desc.length > 0) {
             save({
                 desc: self.desc,
@@ -67,7 +69,7 @@ function TasksViewModel(pclass, status) {
     }
 
     function remove(obj) {
-        toggleHoverTaskFlag = !toggleHoverTaskFlag;
+        //toggleHoverTaskFlag = !toggleHoverTaskFlag;
         loadScreen();
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
@@ -152,7 +154,6 @@ function TasksViewModel(pclass, status) {
     (function load() {
 
         loadScreen();
-
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'GET',
@@ -208,7 +209,6 @@ function TasksViewModel(pclass, status) {
     })();
 }
 function loadScreen(){
-    debugger
     var ls =$('<div>')
         .attr('id', 'loadScreen')
         .appendTo('body')

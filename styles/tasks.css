@@ -7,6 +7,17 @@
     border: 1px solid rgba(198, 131, 68, 0.60);
     float: left;
 }
+#btasks>a{
+    font-size: 48px;
+    width: 45px;
+    position: fixed;
+    z-index: 99;
+    right: 0;
+    background-color: grey;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
 h2{
     text-align: center;
     font-family: Buxton_Sketch;
@@ -52,7 +63,7 @@ h2{
     background-size: 100% 100%;
     border: 1px solid #e0e0e0;
     position: relative;
-    z-index: 1000;
+    z-index: 99;
     border-bottom: 1px solid #b0b0b0;
 }
 
@@ -64,7 +75,49 @@ h2{
 .type-name > h2 {
     margin-left: 5px;
 }
-
+.addWindow{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background: #ffffff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 31%, #6e7774 59%, #0a0e0a 85%, #0a0809 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(31%,#ffffff), color-stop(59%,#6e7774), color-stop(85%,#0a0e0a), color-stop(100%,#0a0809)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#0a0809',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    z-index: 100;
+}
+.addForm{
+    position: fixed;
+    height: 500px;
+    width: 500px;
+    z-index: 105;
+    right: 50%;
+    margin-right: -250px;
+    top: 50%;
+    margin-top:-250px;
+    text-align: center;
+}
+.addForm>h2{
+    font-family: Buxton_Sketch;
+    font-size: 24pt;
+}
+.addForm span{
+    font-family: Buxton_Sketch;
+    font-size: 14pt;
+}
+.addForm textarea {
+    resize: none;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.addForm select{
+    width: 200px;
+    margin-bottom: 25px;
+}
 .date {
     position: absolute;
     margin-left: -180px;
