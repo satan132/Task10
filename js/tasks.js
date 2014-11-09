@@ -3,11 +3,20 @@ function TasksViewModel(pclass, status) {
     var restApiKey = 'eyv8T2GKSx9t0iBpxHTl3WOo7CyoxSq2XGBKbrZh';
 
     var self = this;
+    self.isShowing=ko.observable(false);
     self.isAdded=ko.observable(false);
-    //self.addChange=;alert(self.isAdded)});
+    self.addChange=function(){if(self.isAdded()) self.isAdded(false); else self.isAdded(true);};
     self.desc = '';
+    self.t=ko.observable();
+    self.gss=ko.observable();
     self.date = '123434343';
     self.selectedStatus=status[0];
+    self.show=function(obj){
+        self.gss(obj.status)
+        self.t(obj.desc());;
+        self.isShowing(true);
+    };
+
     self.head=ko.computed(function(){
         var first=pclass.charAt(0);
         first=first.toUpperCase();
@@ -18,13 +27,13 @@ function TasksViewModel(pclass, status) {
         return first;
     });
     self.status = status;
-
     self.colstatus = [];
     for(var i = 0; i < status.length; ++i) {
         self.colstatus[status[i]] = ko.observableArray([]);
     }
 
     self.add = function( type) {
+        self.isAdded(false);
         if (self.desc.length > 0) {
             save({
                 desc: self.desc,
@@ -69,7 +78,7 @@ function TasksViewModel(pclass, status) {
     }
 
     function remove(obj) {
-        //toggleHoverTaskFlag = !toggleHoverTaskFlag;
+
         loadScreen();
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
@@ -115,20 +124,32 @@ function TasksViewModel(pclass, status) {
                     objectId: response.objectId,
                     desc: ko.observable(task.desc),
                     date: ko.observable(response.createdAt),
+                    status: task.status,
                     isEditing: ko.observable(false),
                     edit: function () {
+                        self.selectedStatus=task.status;
+                        self.desc=task.desc;
                         obj.isEditing(true);
+
                     },
                     save: function () {
-                        var self = this;
+                        remove(this);
+                        for(var i = 0; i < self.status.length; ++i) {
+                            if(this.status == self.status[i]) {
+                                self.colstatus[status[i]].remove(this);
+                                break;
+                            }
+                        }
+                        self.add(self.selectedStatus);
+
                         obj.isEditing(false);
-                        update({
+                        /*update({
                             desc: self.desc(),
                             objectId: self.objectId
                         }, function(r) {
                             self.isEditing(false);
                             self.date(r.updatedAt);
-                        });
+                        });*/
                     },
                     remove: function() {
                         remove(this);
@@ -174,17 +195,29 @@ function TasksViewModel(pclass, status) {
                             date: ko.observable(r.updatedAt),
                             isEditing: ko.observable(false),
                             edit: function () {
+
+                                self.selectedStatus=this.status;
+                                self.desc=this.desc();
                                 this.isEditing(true);
                             },
                             save: function () {
-                                var self = this;
-                                update({
+                                remove(this);
+                                for(var i = 0; i < self.status.length; ++i) {
+                                    if(this.status == self.status[i]) {
+                                        self.colstatus[status[i]].remove(this);
+                                        break;
+                                    }
+                                }
+                                self.add(self.selectedStatus);
+
+                                this.isEditing(false);
+                                /*update({
                                     desc: self.desc(),
                                     objectId: self.objectId
                                 }, function(r) {
                                     self.isEditing(false);
                                     self.date(r.updatedAt);
-                                });
+                                });*/
                             },
                             remove: function() {
                                 remove(this);

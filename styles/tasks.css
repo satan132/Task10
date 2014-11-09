@@ -3,25 +3,31 @@
     /*background-color: rgba(198, 131, 68, 0.60);*/
     margin: 5px;
     border-radius: 5px;
-    background-color: #E3E3E3;;
-    border: 1px solid rgba(198, 131, 68, 0.60);
+
+
     float: left;
 }
-#btasks>a{
-    font-size: 48px;
+#btasks>button{
+    font-size: 36px;
     width: 45px;
+    height: 45px;
     position: fixed;
     z-index: 99;
-    right: 0;
+    right: 20px;
+    top: 0;
     background-color: grey;
     text-decoration: none;
     color: black;
     text-align: center;
+    border: 0;
+    border-radius: 25px;
 }
 h2{
     text-align: center;
     font-family: Buxton_Sketch;
     font-size: 24pt;
+    color: #ffffff;
+    border-bottom: 3px solid white;
 
 
 }
@@ -29,7 +35,7 @@ h2{
     width: 100%;
     height: 30px;
     line-height: 30px;
-    background-color: rgba(198, 131, 68, 0.60);
+
 }
 
 .tasks > .ul {
@@ -41,32 +47,48 @@ h2{
 {
     position: absolute;
     bottom: 0;
-    left: 30%;
+    right: 10px;
 
 
 }
+#btasks{
+    background: url(board.jpg) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    margin-left: 30px;
+    min-width: 1220px;
+    padding-right: 10px;
+    padding-left: 10px;
 
+}
 .bbutton-edit a{
     text-decoration: none;
+    color: black;
+    font-family: Buxton_Sketch;
+    font-size: 20px;
 }
-.bbutton-edit a:visited{
-    color: rgb(0,0,0);
-}
-.bbutton-edit a:active{
-    color:rgb(0,0,0);
-}
+
 .tasks > .ul > .li {
     margin: 5px auto;
     padding: 4px;
     min-height: 200px;
     background: url('sticker.png')no-repeat;
     background-size: 100% 100%;
-    border: 1px solid #e0e0e0;
+
     position: relative;
-    z-index: 99;
+
     border-bottom: 1px solid #b0b0b0;
 }
-
+.bbutton-edit button{
+    font-size: 16px;
+    position: absolute;
+    top:-183px;
+    background-color: darkgrey;
+    border-radius: 30px;
+    left: 7px;
+}
 .tasks > .ul > .li:hover {
     background: url('sticker2.png')no-repeat;
     background-size: 100% 100%;
@@ -79,18 +101,15 @@ h2{
     position: fixed;
     height: 100%;
     width: 100%;
+    left: 0;
     top: 0;
-    background: #ffffff; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover, #ffffff 31%, #6e7774 59%, #0a0e0a 85%, #0a0809 100%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(31%,#ffffff), color-stop(59%,#6e7774), color-stop(85%,#0a0e0a), color-stop(100%,#0a0809)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* IE10+ */
-    background: radial-gradient(ellipse at center, #ffffff 31%,#6e7774 59%,#0a0e0a 85%,#0a0809 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#0a0809',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: rgba(51,51,51,0.5);
     z-index: 100;
 }
 .addForm{
+    background-color: lightgray;
+    border-radius: 30px;
+    border: 2px solid grey;
     position: fixed;
     height: 500px;
     width: 500px;
@@ -117,6 +136,18 @@ h2{
 .addForm select{
     width: 200px;
     margin-bottom: 25px;
+}
+.addForm p{
+    max-width: 500px;
+}
+.addForm button{
+    margin: 50px;
+    width: 60px;
+    height: 40px;
+    background-color: grey;
+    border-radius: 15px;
+    font-family: Buxton_Sketch;
+    font-size: 20px;
 }
 .date {
     position: absolute;

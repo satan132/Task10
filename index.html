@@ -35,9 +35,9 @@
         </div>
         <!---------------------------------------------------------------------------------------------------------------------->
         <div id="btasks">
-            <button data-bind="click: function(){if(isAdded) {isAdded=false; } else { isAdded=true; } alert(isAdded)}">+</button>
+            <button data-bind="click: addChange">+</button>
             <h2 data-bind="text: head"></h2>
-            <div data-bind="if:$root.isAdded">
+            <div data-bind="visible:isAdded()">
                 <div class="addWindow">
                     <div class="addForm">
                         <form>
@@ -47,7 +47,7 @@
                             <span>Select status</span><br/>
                             <select data-bind="options: $root.status, value:$root.selectedStatus"></select><br/>
                             <button data-bind="click: $root.add(selectedStatus)">Add</button>
-                            <button data-bind="click: function(){$root.isAdded=false}">Cancel</button>
+                            <button data-bind="click: addChange">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -64,26 +64,48 @@
                                 <div class="objectId" data-bind="text: $parent.objectId"></div>
                                 <div data-bind="ifnot: isEditing">
                                     <div>
-                                        <div class="text-task" data-bind="text: desc"></div>
+                                        <div class="text-task" data-bind="text: desc, click: $root.show "></div>
                                         <div class="date" data-bind="text: date"></div>
                                     </div>
                                     <div class="bbutton-edit">
-                                        <a href="#" data-bind="click: edit ">edit</a>
-                                        <a href="#" data-bind="click:remove">del</a>
-                                        <a href="#">change status</a>
+                                        <a href="#" data-bind="click: edit">Edit</a>
+                                        <button href="#" data-bind="click:remove">X</button>
                                     </div>
                                 </div>
                                 <div data-bind="if: isEditing">
-                                    <textarea data-bind="value: desc"></textarea>
-                                    <button data-bind="click: save">add</button>
+                                    <div class="addWindow">
+                                        <div class="addForm">
+                                            <form>
+                                                <h2>Editing issue.</h2>
+                                                <span>Description</span><br/>
+                                                <p data-bind="text:$root.desc"></p><br>
+                                                <textarea cols='50' rows='5'data-bind="value: $root.desc" placeholder="Write your description..."></textarea><br/>
+                                                <span>Select status</span><br/>
+                                                <select data-bind="options: $root.status, value:$root.selectedStatus"></select><br/>
+                                                <button data-bind="click: save">Save</button>
+                                                <button data-bind="click:function(){isEditing(false)}; ">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-bind="visible: $root.isShowing">
+                                    <div class="addWindow">
+                                        <div class="addForm">
+                                            <form>
+                                                <h2 data-bind="text: $root.head"></h2>
+                                                <span>Description</span><br/>
+                                                <p data-bind="text:$root.t"></p><br>
+                                                <br/>
+                                                <span>Selected status: <strong data-bind="text: $root.gss, click:$root.seyhi"></strong></span><br/>
+                                                <button data-bind="click:function(){$root.isShowing(false)}; ">Exit</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="baddtast">
-                        <textarea data-bind="value: $parent.desc"></textarea>
-                        <button data-bind="click: function () { $parent.add( $data) }">add</button>
-                    </div>
+
                 </div>
             </div>
         </div>
