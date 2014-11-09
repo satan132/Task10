@@ -1,7 +1,7 @@
 .btype-task {
-    width: 300px;
+    width: 190px;
     /*background-color: rgba(198, 131, 68, 0.60);*/
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
     background-color: #E3E3E3;;
     border: 1px solid rgba(198, 131, 68, 0.60);
@@ -15,25 +15,44 @@
     background-color: rgba(198, 131, 68, 0.60);
 }
 
-.tasks > ul {
+.tasks > .ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
+.bbutton-edit
+{
+    position: absolute;
+    bottom: 0;
+    left: 30%;
 
-.tasks > ul > li {
+
+}
+
+.bbutton-edit a{
+    text-decoration: none;
+}
+.bbutton-edit a:visited{
+    color: rgb(0,0,0);
+}
+.bbutton-edit a:active{
+    color:rgb(0,0,0);
+}
+.tasks > .ul > .li {
     margin: 5px auto;
-    width: 280px;
     padding: 4px;
-    background: #FFF;
+    min-height: 200px;
+    background: url('sticker.png')no-repeat;
+    background-size: 100% 100%;
     border: 1px solid #e0e0e0;
     position: relative;
     z-index: 1000;
     border-bottom: 1px solid #b0b0b0;
 }
 
-.tasks > ul > li:hover {
-    background-color: #e9e9e9;
+.tasks > .ul > .li:hover {
+    background: url('sticker2.png')no-repeat;
+    background-size: 100% 100%;
 }
 
 .type-name > h2 {
@@ -53,6 +72,8 @@
 .text-task {
     cursor: pointer;
     word-wrap: break-word;
+    text-align: center;
+    margin-top: 70px;
 }
 
 .text-task:hover {

@@ -14,9 +14,8 @@
 }
 
 .bbutton-slider, .task {
-    float: left;
+    position: absolute;
 }
-
 #button-slider > ul {
     margin: 0;
     padding: 0;
@@ -69,4 +68,6 @@
     background-color: #F4EEE9;
     overflow: auto;
     height: 100%;
+    margin-left: 30px;
+    min-width: 1024px;
 }

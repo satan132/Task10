@@ -5,10 +5,16 @@ body {
     font-size: 10pt;
     position: relative;
     width: 100%;
+    height: 100%;
     overflow: hidden;
 
-}
 
+}
+html{
+    height: 100%;
+    width: 100%;
+
+}
 h2 {
     font-size: 10.5pt;
     margin: 0;
@@ -16,5 +22,15 @@ h2 {
 }
 
 .wrap {
-    position: absolute;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    min-width: 1024px;
+
+}
+#content{
+    width: 100%;
+    height: 95%;
+    position: relative;
+
 }

@@ -17,7 +17,8 @@
 <body>
 <div class="wrap">
     <div class="header">
-
+        <img src="logo.png">
+        <span>Issue tracker</span>
     </div>
     <div id="content">
         <div class="bbutton-slider">
@@ -25,7 +26,7 @@
                 <ul data-bind="foreach: types">
                     <li>
                         <div class="el-button-slider">
-                            <div class="button-slider-text" data-bind="text: $data.name, attr: { selected: $data.name == $parent.chosenTypeId }, click: function() { $parent.select($data.name); }"></div>
+                            <div class="button-slider-text" data-bind="text: $data.name, attr: { selected: $data.name == $parent.chosenTypeId }, click: function() { $parent.select($data.name); location.reload() }"></div>
                         </div>
                     </li>
                 </ul>
@@ -38,17 +39,17 @@
                         <h2 data-bind="text: $data"></h2>
                     </div>
                     <div class="tasks">
-                        <ul data-bind="foreach: $parent.colstatus[$data];">
-                            <li>
+                        <div class='ul'data-bind="foreach: $parent.colstatus[$data];">
+                            <div class="li"data-bind="event: { mouseover:function() { $parents[1].toggleHoverTask($element)}, mouseout:function() { $parents[1].toggleHoverTask($element)}  }">
                                 <div class="objectId" data-bind="text: $parent.objectId"></div>
                                 <div data-bind="ifnot: isEditing">
-                                    <div data-bind="click: function() { $parents[1].toggleHoverTask($element); }">
+                                    <div >
                                         <div class="text-task" data-bind="text: desc"></div>
                                         <div class="date" data-bind="text: date"></div>
                                     </div>
                                     <div class="bbutton-edit">
-                                        <a href="#" data-bind="click: edit">edit</a>
-                                        <a href="#" data-bind="click: remove">del</a>
+                                        <a href="#" data-bind="click: edit ">edit</a>
+                                        <a href="#" data-bind="click:remove">del</a>
                                         <a href="#">change status</a>
                                     </div>
                                 </div>
@@ -56,8 +57,8 @@
                                     <textarea data-bind="value: desc"></textarea>
                                     <button data-bind="click: save">add</button>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="baddtast">
                         <textarea data-bind="value: $parent.desc"></textarea>

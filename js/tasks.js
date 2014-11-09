@@ -55,6 +55,7 @@ function TasksViewModel(pclass, status) {
     }
 
     function remove(obj) {
+        toggleHoverTaskFlag = !toggleHoverTaskFlag;
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
             type: 'DELETE',
