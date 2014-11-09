@@ -81,6 +81,11 @@ h2{
 
     border-bottom: 1px solid #b0b0b0;
 }
+
+.tasks > .ul:first-child {
+    margin-left: 20px;
+}
+
 .bbutton-edit button{
     font-size: 16px;
     position: absolute;
