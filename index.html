@@ -35,7 +35,7 @@
         </div>
         <!---------------------------------------------------------------------------------------------------------------------->
         <div id="btasks">
-            <button data-bind="click: function(){if($root.isAdded)$root.isAdded=false;else $root.isAdded=true;alert($root.isAdded)}">+</button>
+            <button data-bind="click: function(){if(isAdded) {isAdded=false; } else { isAdded=true; } alert(isAdded)}">+</button>
             <h2 data-bind="text: head"></h2>
             <div data-bind="if:$root.isAdded">
                 <div class="addWindow">
