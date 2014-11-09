@@ -5,7 +5,7 @@
     border-radius: 5px;
 
 
-    float: left;
+    float:left;
 }
 #btasks>button{
     font-size: 36px;
@@ -156,7 +156,7 @@ h2{
 }
 .date {
     position: absolute;
-    margin-left: -180px;
+    margin-left: -150px;
     left: 100%;
     top: 5px;
     height: 15px;
