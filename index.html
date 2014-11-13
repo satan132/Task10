@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Issue Tracker</title>
-    <link rel="stylesheet" type="text/css" href="./styles/common.css">
-    <link rel="stylesheet" type="text/css" href="./styles/header.css">
-    <link rel="stylesheet" type="text/css" href="./styles/tasks.css">
-    <link rel="stylesheet" type="text/css" href="./styles/slider.css">
-    <link rel="stylesheet" type="text/css" href="./styles/edit.css">
+    <link rel="stylesheet" type="text/css" href="./styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/header.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/tasks.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/slider.css"  />
+    <link rel="stylesheet" type="text/css" href="./styles/edit.css" />
     <script type="text/javascript" src="./js/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="./js/knockout.js"></script>
     <script type="text/javascript" src="./js/tasks.js"></script>
@@ -17,7 +17,7 @@
 <body>
 <div class="wrap">
     <div class="header">
-        <img src="logo.png"/>
+        <img src="logo.png" alt="logo" />
         <h1>Issue tracker</h1>
     </div>
     <div id="content">
@@ -42,7 +42,7 @@
                         <form>
                             <h2>Adding a new task.</h2>
                             <span>Description</span><br/>
-                        <textarea cols='50' rows='10'data-bind="value: desc" placeholder="Write your description..."></textarea><br/>
+                        <textarea cols="50" rows="10" data-bind="value: desc" placeholder="Write your description..."></textarea><br/>
                             <span>Select status</span><br/>
                             <select data-bind="options: $root.status, value:$root.selectedStatus"></select><br/>
                             <button data-bind="click: $root.add(selectedStatus)">Add</button>
@@ -57,8 +57,8 @@
                         <h3 data-bind="text: $data"></h3>
                     </div>
                     <div class="tasks">
-                        <div class='ul'data-bind="foreach: $parent.colstatus[$data];">
-                            <div class="li"data-bind="event: { mouseover:function() { $parents[1].toggleHoverTask($element)}, mouseout:function() { $parents[1].toggleHoverTask($element)}  }">
+                        <div class="ul" data-bind="foreach: $parent.colstatus[$data];">
+                            <div class="li" data-bind="event: { mouseover:function() { $parents[1].toggleHoverTask($element)}, mouseout:function() { $parents[1].toggleHoverTask($element)}  }">
                                 <div class="objectId" data-bind="text: $parent.objectId"></div>
                                 <div data-bind="ifnot: isEditing">
                                     <div>
@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="bbutton-edit">
                                         <a href="#" data-bind="click: edit">Edit</a>
-                                        <button href="#" data-bind="click:remove">X</button>
+                                        <button data-bind="click:remove">X</button>
                                     </div>
                                 </div>
                                 <div data-bind="if: isEditing">
@@ -77,7 +77,7 @@
                                                 <h2>Editing issue.</h2>
                                                 <span>Description</span><br/>
                                                 <p data-bind="text:$root.desc"></p><br>
-                                                <textarea cols='50' rows='5'data-bind="value: $root.desc" placeholder="Write your description..."></textarea><br/>
+                                                <textarea cols="50" rows="5" data-bind="value: $root.desc" placeholder="Write your description..."></textarea><br/>
                                                 <span>Select status</span><br/>
                                                 <select data-bind="options: $root.status, value:$root.selectedStatus"></select><br/>
                                                 <button data-bind="click: save">Save</button>
