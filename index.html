@@ -34,6 +34,9 @@
             </div>
         </div>
         <div id="btasks">
+            <div data-bind="if: isLoadScreen">
+                <div id="loadScreen"><img src="Slowpoke_3.gif" alt="load" /></div>
+            </div>
             <button data-bind="click: addChange">+</button>
             <h2 data-bind="text: head"></h2>
             <div data-bind="visible:isAdded()">

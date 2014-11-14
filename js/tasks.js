@@ -5,17 +5,19 @@ function TasksViewModel(pclass, status) {
     var self = this;
     self.isShowing=ko.observable(false);
     self.isAdded=ko.observable(false);
-    self.addChange=function(){if(self.isAdded()) self.isAdded(false); else self.isAdded(true);};
+    self.addChange=function() { if(self.isAdded()) self.isAdded(false); else self.isAdded(true); };
     self.desc = '';
     self.t=ko.observable();
     self.gss=ko.observable();
     self.date = '123434343';
     self.selectedStatus=status[0];
     self.show=function(obj){
-        self.gss(obj.status)
-        self.t(obj.desc());;
+        self.gss(obj.status);
+        self.t(obj.desc());
         self.isShowing(true);
     };
+
+    self.isLoadScreen = ko.observable(false);
 
     self.head=ko.computed(function(){
         var first=pclass.charAt(0);
@@ -55,7 +57,7 @@ function TasksViewModel(pclass, status) {
     };
 
     function update(data, funcend) {
-        loadScreen();
+        self.isLoadScreen(true);
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + data.objectId,
             type: 'PUT',
@@ -67,10 +69,10 @@ function TasksViewModel(pclass, status) {
             },
             success: function (response) {
                 funcend(response);
-                removeLoadScreen();
+                self.isLoadScreen(false);
             },
             error: function () {
-                removeLoadScreen();
+                self.isLoadScreen(false);
                 alert('Failed to update status');
             }
         };
@@ -79,7 +81,7 @@ function TasksViewModel(pclass, status) {
 
     function remove(obj) {
 
-        loadScreen();
+        self.isLoadScreen(true);
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass + '/' + obj.objectId,
             type: 'DELETE',
@@ -95,18 +97,18 @@ function TasksViewModel(pclass, status) {
                         break;
                     }
                 }
-                removeLoadScreen();
+                self.isLoadScreen(false);
             },
             error: function () {
                 alert('can not be removed');
-                removeLoadScreen();
+                self.isLoadScreen(false);
             }
         };
         $.ajax(options);
     }
 
     function save(task) {
-        loadScreen();
+        self.isLoadScreen(true);
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'POST',
@@ -133,7 +135,7 @@ function TasksViewModel(pclass, status) {
 
                     },
                     save: function () {
-                        remove(this);
+                        //remove(this);
                         for(var i = 0; i < self.status.length; ++i) {
                             if(this.status == self.status[i]) {
                                 self.colstatus[status[i]].remove(this);
@@ -143,13 +145,13 @@ function TasksViewModel(pclass, status) {
                         self.add(self.selectedStatus);
 
                         obj.isEditing(false);
-                        /*update({
+                        update({
                             desc: self.desc(),
                             objectId: self.objectId
                         }, function(r) {
                             self.isEditing(false);
                             self.date(r.updatedAt);
-                        });*/
+                        });
                     },
                     remove: function() {
                         remove(this);
@@ -162,11 +164,11 @@ function TasksViewModel(pclass, status) {
                     }
                 }
                 self.desc = '';
-                removeLoadScreen();
+                self.isLoadScreen(false);
             },
             error: function () {
                 alert('can not be added');
-                removeLoadScreen();
+                self.isLoadScreen(false);
             }
         };
         $.ajax(options);
@@ -174,7 +176,7 @@ function TasksViewModel(pclass, status) {
 
     (function load() {
 
-        loadScreen();
+        self.isLoadScreen(true);
         var options = {
             url: 'https://api.parse.com/1/classes/' + pclass,
             type: 'GET',
@@ -231,17 +233,18 @@ function TasksViewModel(pclass, status) {
                         }
                     }
                 }
-                removeLoadScreen();
+                //removeLoadScreen();
+                self.isLoadScreen(false);
             },
             error: function () {
                 alert('Can\'t retrieve data');
-                removeLoadScreen();
+                self.isLoadScreen(false);
             }
         };
         $.ajax(options);
     })();
 }
-function loadScreen(){
+/*function loadScreen(){
     var ls =$('<div>')
         .attr('id', 'loadScreen')
         .appendTo('body')
@@ -249,4 +252,4 @@ function loadScreen(){
 }
 function removeLoadScreen(){
     $('#loadScreen').remove();
-}
+}*/
